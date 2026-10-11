@@ -447,7 +447,7 @@ html.lb-open { overflow: hidden; }
 .help {
   position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); z-index: 60;
   width: 52px; height: 52px; display: grid; place-items: center;
-  background: var(--blue); color: #fff; text-decoration: none;
+  border: 0; background: var(--blue); color: #fff; text-decoration: none; cursor: pointer;
   box-shadow: 0 10px 28px rgba(0,115,242,.4);
   animation: bob 3.2s ease-in-out infinite;
   transition: background-color .2s, color .2s, opacity .3s, visibility 0s;
@@ -456,10 +456,25 @@ html.lb-open { overflow: hidden; }
 .help .ic { width: 26px; height: 26px; stroke-width: 1.7; }
 .help.is-hidden { opacity: 0; visibility: hidden; animation: none; transition: opacity .3s, visibility 0s .3s; }
 /* label slides out on hover (computers only) */
-.help::before { content: "Leave a request"; position: absolute; right: calc(100% + 10px); top: 50%; padding: 8px 12px; background: #000; color: #fff; font-size: 13px; font-weight: 700; letter-spacing: .03em; white-space: nowrap; opacity: 0; transform: translate(8px, -50%); pointer-events: none; transition: opacity .2s, transform .2s; }
+.help::before { content: "Support"; position: absolute; right: calc(100% + 10px); top: 50%; padding: 8px 12px; background: #000; color: #fff; font-size: 13px; font-weight: 700; letter-spacing: .03em; white-space: nowrap; opacity: 0; transform: translate(8px, -50%); pointer-events: none; transition: opacity .2s, transform .2s; }
 @media (hover: hover) {
   .help:hover::before { opacity: 1; transform: translate(0, -50%); }
 }
+/* quick button to the request form, bottom left */
+.quick {
+  position: fixed; left: max(16px, env(safe-area-inset-left)); bottom: max(16px, env(safe-area-inset-bottom)); z-index: 60;
+  display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 20px; border-radius: 6px;
+  background: #fff; color: var(--ink); text-decoration: none;
+  font-weight: 800; font-stretch: 112%; font-size: 14px; letter-spacing: .06em; text-transform: uppercase;
+  box-shadow: 0 10px 28px rgba(0,0,0,.28);
+  transition: background-color .2s, color .2s, opacity .3s, transform .3s, visibility 0s;
+}
+.quick .ic { width: 20px; height: 20px; color: var(--blue); transition: color .2s; }
+.quick:hover { background: var(--blue); color: #fff; }
+.quick:hover .ic { color: #fff; }
+.quick.is-hidden { opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity .3s, transform .3s, visibility 0s .3s; }
+html.menu-open .quick { display: none; }
+
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
@@ -541,6 +556,7 @@ html.lb-open { overflow: hidden; }
 @media (max-width: 560px) {
   .foot__ask { grid-column: 1 / -1; }
   .help { width: 48px; height: 48px; }
+  .quick { height: 48px; padding: 0 16px; font-size: 13px; }
   .foot { padding-bottom: 88px; }
   .form { grid-template-columns: 1fr; }
   .form__send .btn { width: 100%; }

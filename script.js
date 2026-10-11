@@ -1,17 +1,22 @@
 (() => {
   const PHONE = '+17802802404';
 
-  // Support button: hide it while the request form or the footer is already on screen
-  const help = document.querySelector('.help');
-  if (help && 'IntersectionObserver' in window) {
+  // Floating buttons keep out of the way: they hide while certain parts of the page are on screen
+  const hideNear = (el, zones) => {
+    zones = zones.filter(Boolean);
+    if (!el || !zones.length || !('IntersectionObserver' in window)) { if (el) el.classList.remove('is-hidden'); return; }
     const seen = new Set();
-    const zones = [document.getElementById('contact'), document.querySelector('.foot')].filter(Boolean);
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
-      help.classList.toggle('is-hidden', seen.size > 0);
+      el.classList.toggle('is-hidden', seen.size > 0);
     }, { threshold: 0.12 });
     zones.forEach((z) => io.observe(z));
-  }
+  };
+  const formZone = document.getElementById('contact');
+  const footZone = document.querySelector('.foot');
+  hideNear(document.querySelector('.help'), [formZone, footZone]);
+  // "Get a price": not on the first screen (the top already has one), not next to the form or the footer
+  hideNear(document.querySelector('.quick'), [document.querySelector('.hero, .sv-hero'), formZone, footZone]);
 
   // Phone menu
   const burger = document.querySelector('.bar__burger');
