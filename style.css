@@ -510,6 +510,8 @@ html.menu-open .quick { display: none; }
 }
 @media (max-width: 860px) {
   :root { --hd: 64px; --bar: 56px; --top: 64px; }
+  /* the black first screen fills the phone to the bottom edge; the roof and the white block show up on scroll */
+  .hero { min-height: calc(100svh - var(--hd) - var(--bar) + var(--rise) + 2px); }
   .hd__where { display: none; }
   .hd__logo img { height: 44px; }
   .hd__cta { min-height: 40px; padding: 0 14px; font-size: 13px; }
@@ -548,7 +550,6 @@ html.menu-open .quick { display: none; }
   .ba { width: calc(100% + 2 * var(--gut)); margin: 0 calc(-1 * var(--gut)); }
 }
 @media (max-width: 720px) {
-  .hero { min-height: 68svh; }
   .sv-hero__h { font-size: 10.6vw; }
 }
 @media (max-width: 600px) {
