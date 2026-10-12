@@ -373,6 +373,33 @@ html.menu-open .help { display: none; }
   .card:hover::before { transform: scaleX(1); }
 }
 
+/* reviews from Google: a summary strip, then quote cards (a swipeable row on phones) */
+.rev { background: #F2F4F7; color: var(--ink); padding: clamp(72px, 9vw, 128px) 0; }
+.rev__h { margin-bottom: clamp(24px, 3vw, 40px); }
+.rev__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 32px; padding: clamp(18px, 2vw, 26px) clamp(18px, 2.2vw, 30px); background: #fff; }
+.rev__line { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; }
+.stars { display: inline-flex; gap: 2px; color: #FBBC04; }
+.stars svg { width: 20px; height: 20px; fill: currentColor; }
+.stars .off { color: #D5DAE1; }
+.rev__rated { font-weight: 800; font-stretch: 108%; font-size: 18px; color: var(--blue-deep); }
+.rev__all { color: var(--ink); font-size: 15px; text-underline-offset: 3px; transition: color .2s; }
+.rev__all:hover { color: var(--blue); }
+.rev__all[hidden] { display: none; }
+.rev__sub { margin-top: 6px; font-size: 15px; color: var(--muted-ink); }
+.rev__act { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.rev__g { width: 20px; height: 20px; flex: none; }
+.btn--g { background: #fff; border-color: var(--line); color: var(--ink); }
+@media (hover: hover) { .btn--g:hover { border-color: var(--blue); background: #fff; color: var(--blue); } }
+.rev__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 22px); margin-top: clamp(20px, 2.4vw, 32px); }
+.rev__list:empty { display: none; }
+.rev__card { display: flex; flex-direction: column; margin: 0; padding: clamp(22px, 2.2vw, 30px); background: #fff; }
+.rev__text { flex: 1; margin: 0; font-style: italic; line-height: 1.6; color: #2E333B; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 10; overflow: hidden; }
+.rev__card.is-open .rev__text { -webkit-line-clamp: unset; display: block; }
+.rev__more { align-self: flex-start; margin-top: 8px; padding: 0; border: 0; background: none; color: var(--blue-deep); font-weight: 700; cursor: pointer; }
+.rev__card figcaption { margin-top: 20px; }
+.rev__name { display: block; font-weight: 700; color: var(--blue-deep); }
+.rev__place { display: block; margin-top: 2px; font-size: 15px; color: var(--muted-ink); }
+
 /* about — text and facts on the left, photo on the right */
 .about { background: #fff; color: var(--ink); padding: clamp(72px, 9vw, 128px) 0; }
 .about__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); gap: clamp(40px, 6vw, 104px); align-items: start; }
@@ -540,6 +567,10 @@ html.menu-open .quick { display: none; }
   .best__grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 720px) {
+  .rev__act { align-items: flex-start; }
+  .rev__list { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; margin-left: calc(-1 * var(--gut)); margin-right: calc(-1 * var(--gut)); padding: 0 var(--gut) 6px; scrollbar-width: none; }
+  .rev__list::-webkit-scrollbar { display: none; }
+  .rev__card { flex: 0 0 86%; scroll-snap-align: center; }
   .rows__item { grid-template-columns: 1fr; gap: 6px; }
   .best__grid { grid-template-columns: 1fr 1fr; gap: 8px; }
   .card { aspect-ratio: 3 / 4; }

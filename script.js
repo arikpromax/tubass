@@ -211,6 +211,48 @@
     pick(0, true);
   });
 
+  // Google reviews: drawn from the JSON in #reviews-data
+  const rev = document.getElementById('reviews');
+  if (rev) {
+    const starsSvg = (n) => [1, 2, 3, 4, 5].map((i) => '<svg class="' + (i <= Math.round(n) ? '' : 'off') + '"><use href="#i-star"/></svg>').join('');
+    const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+    const render = (d) => {
+      const list = rev.querySelector('.rev__list');
+      const items = Array.isArray(d.reviews) ? d.reviews.filter((r) => r && r.text) : [];
+      list.textContent = '';
+      items.forEach((r) => {
+        const card = el('figure', 'rev__card');
+        card.setAttribute('role', 'listitem');
+        const text = el('blockquote', 'rev__text', '“' + String(r.text).trim() + '”');
+        const cap = el('figcaption');
+        cap.append(el('b', 'rev__name', r.name || 'Google user'));
+        if (r.place) cap.append(el('span', 'rev__place', r.place));
+        card.append(text, cap);
+        list.append(card);
+        // "Read more" only when the text is actually cut
+        requestAnimationFrame(() => {
+          if (text.scrollHeight <= text.clientHeight + 2) return;
+          const more = el('button', 'rev__more', 'Read more');
+          more.type = 'button';
+          more.addEventListener('click', () => { const open = card.classList.toggle('is-open'); more.textContent = open ? 'Show less' : 'Read more'; });
+          text.after(more);
+        });
+      });
+      const stars = rev.querySelector('.rev__line .stars');
+      const all = rev.querySelector('.rev__all');
+      if (d.rating) {
+        stars.innerHTML = starsSvg(d.rating);
+        rev.querySelector('.rev__rated').textContent = 'Rated ' + Number(d.rating).toFixed(1) + ' on Google';
+      } else stars.innerHTML = '<svg class="rev__g"><use href="#i-google"/></svg>';
+      all.hidden = !d.profile;
+      if (d.profile) { all.href = d.profile; all.textContent = (d.count ? 'Read all ' + d.count + ' reviews on Google' : 'Read the reviews on Google') + ' →'; }
+      const cta = rev.querySelector('.rev__cta');
+      if (d.write) cta.href = d.write; else cta.removeAttribute('href');
+      rev.querySelector('.rev__nolink').hidden = !!d.write;
+    };
+    try { render(JSON.parse(document.getElementById('reviews-data').textContent)); } catch (err) { /* broken JSON: the block stays as in the HTML */ }
+  }
+
   // Photo cards: a tap opens the photo full size; arrows, keys or a swipe go to the next one
   const lb = document.getElementById('lb');
   const shots = [...document.querySelectorAll('.card')];
