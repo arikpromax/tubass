@@ -1,4 +1,3 @@
-@property --pos { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
 @view-transition { navigation: auto; }   /* smooth fade between the home page and service pages */
 
 :root {
@@ -234,18 +233,22 @@ html.menu-open .help { display: none; }
 .ba__tag { position: absolute; top: clamp(12px, 2vw, 24px); left: clamp(12px, 2vw, 24px); padding: 10px 14px 9px; background: rgba(0,0,0,.72); color: #fff; font-weight: 700; font-stretch: 118%; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; line-height: 1; }
 .ba__tag--after { left: auto; right: clamp(12px, 2vw, 24px); }
 .ba__flip { transform: scaleX(-1); }   /* before photo was shot from the other end of the fence */
-.ba__before { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
-.ba__bar { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: #fff; pointer-events: none; }
+/* the divider moves with transforms only (no repaint, no layout), so dragging stays smooth on phones:
+   the "before" layer slides left and its content slides back right by the same amount */
+.ba__before { position: absolute; inset: 0; overflow: hidden; transform: translate3d(-50%, 0, 0); will-change: transform; }
+.ba__in { position: absolute; inset: 0; transform: translate3d(50%, 0, 0); will-change: transform; }
+.ba__track { position: absolute; inset: 0; transform: translate3d(50%, 0, 0); will-change: transform; pointer-events: none; }
+.ba__bar { position: absolute; top: 0; bottom: 0; left: 0; width: 2px; margin-left: -1px; background: #fff; }
 .ba__handle {
-  position: absolute; top: 50%; left: var(--pos);
+  position: absolute; top: 50%; left: 0;
   width: 56px; height: 56px; margin: -28px 0 0 -28px;
   display: grid; place-items: center;
-  background: var(--blue); color: #fff; border: 2px solid #fff; cursor: ew-resize;
-  transition: transform .2s;
+  background: var(--blue); color: #fff; border: 2px solid #fff; cursor: ew-resize; pointer-events: auto;
+  transition: scale .2s;
 }
 .ba__handle .ic { width: 24px; height: 24px; stroke-width: 2; }
-.ba.is-drag .ba__handle { transform: scale(1.08); }
-.ba.is-anim { transition: --pos .75s cubic-bezier(.65,0,.35,1); }
+.ba.is-drag .ba__handle { scale: 1.08; }
+.ba.is-anim .ba__before, .ba.is-anim .ba__in, .ba.is-anim .ba__track { transition: transform .75s cubic-bezier(.65,0,.35,1); }
 
 .sec__h { font-size: clamp(36px, 4.6vw, 68px); }
 

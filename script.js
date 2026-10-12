@@ -69,19 +69,32 @@
   // Before / after sliders (one per job)
   document.querySelectorAll('.ba').forEach((ba) => {
     const handle = ba.querySelector('.ba__handle');
+    const before = ba.querySelector('.ba__before');
+    const inner = ba.querySelector('.ba__in');
+    const track = ba.querySelector('.ba__track');
     let pos = 50;
     let drag = null;
     let touched = false;
     let animTimer;
+    let frame = 0;
+    let box = null;
 
-    const set = (p) => {
-      pos = Math.min(100, Math.max(0, p));
-      ba.style.setProperty('--pos', pos + '%');
+    // at most one update per screen frame, transforms only
+    const paint = () => {
+      frame = 0;
+      before.style.transform = 'translate3d(' + (pos - 100) + '%,0,0)';
+      inner.style.transform = 'translate3d(' + (100 - pos) + '%,0,0)';
+      track.style.transform = 'translate3d(' + pos + '%,0,0)';
       handle.setAttribute('aria-valuenow', Math.round(pos));
+    };
+    const set = (p, now) => {
+      pos = Math.min(100, Math.max(0, p));
+      if (now) { cancelAnimationFrame(frame); paint(); }
+      else if (!frame) frame = requestAnimationFrame(paint);
     };
     const animTo = (p) => {
       ba.classList.add('is-anim');
-      set(p);
+      set(p, true);
       clearTimeout(animTimer);
       animTimer = setTimeout(() => ba.classList.remove('is-anim'), 760);
     };
@@ -90,18 +103,20 @@
       clearTimeout(animTimer);
       ba.classList.remove('is-anim');
     };
+    // the slider's box is measured once per touch, not on every move
     const xToPos = (x) => {
-      const r = ba.getBoundingClientRect();
-      return ((x - r.left) / r.width) * 100;
+      if (!box) box = ba.getBoundingClientRect();
+      return ((x - box.left) / box.width) * 100;
     };
 
     // Mouse drags right away; touch waits for a sideways move so the page can still scroll
     ba.addEventListener('pointerdown', (e) => {
       stopAnim();
+      box = ba.getBoundingClientRect();
       drag = { id: e.pointerId, x: e.clientX, moved: e.pointerType === 'mouse' };
       if (drag.moved) {
         set(xToPos(e.clientX));
-        ba.setPointerCapture(e.pointerId);
+        try { ba.setPointerCapture(e.pointerId); } catch (err) { /* no capture: the drag still works while the pointer is over the photo */ }
         ba.classList.add('is-drag');
       }
     });
@@ -118,6 +133,7 @@
       if (!drag || e.pointerId !== drag.id) return;
       if (e.type === 'pointerup' && !drag.moved) set(xToPos(e.clientX)); // a tap moves the divider there
       drag = null;
+      box = null;
       ba.classList.remove('is-drag');
     };
     ba.addEventListener('pointerup', end);
