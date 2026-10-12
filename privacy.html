@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=32">
+<link rel="stylesheet" href="style.css?v=33">
 <script>(function(d){d.classList.add('js');/* lock 1% of screen height once, so in-app browser bars don't make the page jump */var w=0;function f(){if(innerWidth!==w||matchMedia('(hover:hover)').matches){w=innerWidth;d.style.setProperty('--vh1',innerHeight/100+'px')}}f();addEventListener('resize',f)})(document.documentElement)</script>
 </head>
 <body>
@@ -60,9 +60,9 @@
   <div class="wrap hd__top">
     <div class="hd__side">
       <div class="social">
-        <a class="social__a" href="https://www.facebook.com/share/1EPT72c4Zw/" target="_blank" rel="noopener" aria-label="Alexon on Facebook"><svg class="ic ic--fill"><use href="#i-fb"/></svg></a>
+        <a class="social__a" data-link="facebook" data-show="facebook" href="https://www.facebook.com/share/1EPT72c4Zw/" target="_blank" rel="noopener" aria-label="Alexon on Facebook"><svg class="ic ic--fill"><use href="#i-fb"/></svg></a>
       </div>
-      <span class="hd__where">Edmonton &amp; Area</span>
+      <span class="hd__where" data-txt="area">Edmonton &amp; Area</span>
     </div>
     <a class="hd__logo" href="index.html"><img src="img/logo.png" alt="Alexon Home Services" width="1122" height="554"></a>
     <div class="hd__side hd__side--end">
@@ -103,7 +103,7 @@
         <div class="dd__grid" style="--cols:3">
           <a class="dd__item" href="index.html#about"><span class="dd__ic"><svg class="ic"><use href="#i-user"/></svg></span><span><b>About Alexon</b><small>Who we are</small></span></a>
           <a class="dd__item" href="index.html#why"><span class="dd__ic"><svg class="ic"><use href="#i-check"/></svg></span><span><b>Why Alexon</b><small>How we work</small></span></a>
-          <a class="dd__item" href="index.html#area"><span class="dd__ic"><svg class="ic"><use href="#i-pin"/></svg></span><span><b>Where we work</b><small>Edmonton &amp; Area</small></span></a>
+          <a class="dd__item" href="index.html#area"><span class="dd__ic"><svg class="ic"><use href="#i-pin"/></svg></span><span><b>Where we work</b><small data-txt="area">Edmonton &amp; Area</small></span></a>
         </div>
       </div>
     </div>
@@ -112,16 +112,16 @@
       <a class="dd__top" href="index.html#contact" aria-haspopup="true">Contact</a>
       <div class="dd__panel">
         <div class="dd__grid" style="--cols:5">
-          <a class="dd__item" href="tel:+17802802404"><span class="dd__ic"><svg class="ic"><use href="#i-phone"/></svg></span><span><b>Call</b><small>780-280-2404</small></span></a>
+          <a class="dd__item" href="tel:+17802802404"><span class="dd__ic"><svg class="ic"><use href="#i-phone"/></svg></span><span><b>Call</b><small><span data-txt="phone">780-280-2404</span></small></span></a>
           <a class="dd__item" href="sms:+17802802404"><span class="dd__ic"><svg class="ic"><use href="#i-text"/></svg></span><span><b>Send a text</b><small>Photos of the job are welcome</small></span></a>
           <a class="dd__item" href="index.html#contact"><span class="dd__ic"><svg class="ic"><use href="#i-arrow"/></svg></span><span><b>Get a price</b><small>A short form, we call you back</small></span></a>
-          <a class="dd__item" href="https://www.facebook.com/share/1EPT72c4Zw/" target="_blank" rel="noopener"><span class="dd__ic"><svg class="ic ic--fill"><use href="#i-fb"/></svg></span><span><b>Facebook</b><small>Alexon on Facebook</small></span></a>
-          <div class="dd__item dd__item--info"><span class="dd__ic"><svg class="ic"><use href="#i-clock"/></svg></span><span><b>Hours</b><small>Mon – Fri, 8 a.m. – 6 p.m.</small></span></div>
+          <a class="dd__item" data-link="facebook" data-show="facebook" href="https://www.facebook.com/share/1EPT72c4Zw/" target="_blank" rel="noopener"><span class="dd__ic"><svg class="ic ic--fill"><use href="#i-fb"/></svg></span><span><b>Facebook</b><small>Alexon on Facebook</small></span></a>
+          <div class="dd__item dd__item--info"><span class="dd__ic"><svg class="ic"><use href="#i-clock"/></svg></span><span><b>Hours</b><small data-txt="hours">Monday – Friday<br>8 a.m. – 6 p.m.</small></span></div>
         </div>
       </div>
     </div>
   </div>
-  <a class="bar__tel" href="tel:+17802802404" aria-label="Call 780-280-2404"><svg class="ic"><use href="#i-phone"/></svg><span>780-280-2404</span></a>
+  <a class="bar__tel" href="tel:+17802802404" aria-label="Call 780-280-2404"><svg class="ic"><use href="#i-phone"/></svg><span><span data-txt="phone">780-280-2404</span></span></a>
 </nav>
   <div class="mnav" id="mnav" hidden>
     <div class="mnav__top">
@@ -143,10 +143,10 @@
       <a href="trim-doors.html">Trim &amp; Doors</a>
     </div>
     <div class="social mnav__social">
-      <a class="social__a" href="https://www.facebook.com/share/1EPT72c4Zw/" target="_blank" rel="noopener" aria-label="Alexon on Facebook"><svg class="ic ic--fill"><use href="#i-fb"/></svg></a>
+      <a class="social__a" data-link="facebook" data-show="facebook" href="https://www.facebook.com/share/1EPT72c4Zw/" target="_blank" rel="noopener" aria-label="Alexon on Facebook"><svg class="ic ic--fill"><use href="#i-fb"/></svg></a>
     </div>
     <div class="mnav__foot">
-      <a class="btn btn--blue" href="tel:+17802802404"><svg class="ic"><use href="#i-phone"/></svg>Call 780-280-2404</a>
+      <a class="btn btn--blue" href="tel:+17802802404"><svg class="ic"><use href="#i-phone"/></svg>Call <span data-txt="phone">780-280-2404</span></a>
       <a class="btn btn--line" href="sms:+17802802404"><svg class="ic"><use href="#i-text"/></svg>Send a text</a>
     </div>
   </div>
@@ -209,7 +209,7 @@
     <div class="foot__top">
       <div class="foot__brand">
         <a class="foot__logo" href="index.html"><img src="img/logo.png" alt="Alexon Home Services" width="1122" height="554" loading="lazy"></a>
-        <p class="foot__tag">Handyman · Renovation · Painting<br>Edmonton &amp; Area</p>
+        <p class="foot__tag"><span data-tagline>Handyman · Renovation · Painting</span><br><span data-txt="area">Edmonton &amp; Area</span></p>
       </div>
       <nav class="foot__col foot__links" aria-label="Services">
         <p class="foot__h">Services</p>
@@ -238,27 +238,27 @@
     <div class="foot__info">
       <div class="foot__col">
         <p class="foot__h">Contact</p>
-        <a class="foot__tel" href="tel:+17802802404">780-280-2404</a>
-        <p><span class="stub">[email]</span></p>
+        <a class="foot__tel" href="tel:+17802802404"><span data-txt="phone">780-280-2404</span></a>
+        <p data-show="email"><a data-mail="email" href="#"><span class="stub">[email]</span></a></p>
       </div>
-      <div class="foot__col">
+      <div class="foot__col" data-show="address">
         <p class="foot__h">Mailing address</p>
-        <p><span class="stub">[street address]</span><br>Edmonton, AB <span class="stub">[postal code]</span></p>
+        <p data-txt="address"><span class="stub">[street address]</span><br>Edmonton, AB <span class="stub">[postal code]</span></p>
       </div>
       <div class="foot__col">
         <p class="foot__h">Hours</p>
-        <p>Monday – Friday<br>8 a.m. – 6 p.m.</p>
+        <p data-txt="hours">Monday – Friday<br>8 a.m. – 6 p.m.</p>
       </div>
       <div class="foot__col">
         <p class="foot__h">Service area</p>
-        <p>Edmonton and nearby communities</p>
+        <p data-txt="area_note">Edmonton and nearby communities</p>
       </div>
       <div class="foot__col foot__links">
         <p class="foot__h">Follow us</p>
-        <a href="https://www.facebook.com/share/1EPT72c4Zw/" target="_blank" rel="noopener">Facebook</a>
-        <span class="stub">[Google]</span>
-        <span class="stub">[Instagram]</span>
-        <span class="stub">[TikTok]</span>
+        <a data-link="facebook" data-show="facebook" href="https://www.facebook.com/share/1EPT72c4Zw/" target="_blank" rel="noopener">Facebook</a>
+        <a data-link="google" data-show="google" data-label="Google" href="#" target="_blank" rel="noopener"><span class="stub">[Google]</span></a>
+        <a data-link="instagram" data-show="instagram" data-label="Instagram" href="#" target="_blank" rel="noopener"><span class="stub">[Instagram]</span></a>
+        <a data-link="tiktok" data-show="tiktok" data-label="TikTok" href="#" target="_blank" rel="noopener"><span class="stub">[TikTok]</span></a>
       </div>
     </div>
     <div class="foot__bottom">
@@ -272,6 +272,7 @@
   <a class="quick is-hidden" href="index.html#contact"><svg class="ic"><use href="#i-text"/></svg>Get a price</a>
 </footer>
 
-<script src="script.js?v=32"></script>
+<script src="platform.js?v=33"></script>
+<script src="script.js?v=33"></script>
 </body>
 </html>

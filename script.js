@@ -1,5 +1,7 @@
 (() => {
-  const PHONE = '+17802802404';
+  // platform.js (the admin panel) may have put a different phone number here
+  const A = (window.ALEXON = window.ALEXON || {});
+  const tel = () => A.tel || '+17802802404';
 
   // Floating buttons keep out of the way: they hide while certain parts of the page are on screen
   const hideNear = (el, zones) => {
@@ -76,8 +78,10 @@
     }).observe(watch);
   }
 
-  // Before / after sliders (one per job)
-  document.querySelectorAll('.ba').forEach((ba) => {
+  // Before / after sliders (once per slider, so new ones from the admin can be added later)
+  const initSlider = (ba) => {
+    if (ba.dataset.ready) return;
+    ba.dataset.ready = '1';
     const handle = ba.querySelector('.ba__handle');
     const before = ba.querySelector('.ba__before');
     const inner = ba.querySelector('.ba__in');
@@ -169,16 +173,26 @@
       io.observe(ba);
     }
 
-    // Several jobs: each <article class="proj"> carries its photos; thumbnails and arrows switch between them
-    const projs = [...document.querySelectorAll('.proj')];
+    ba.api = { set, stopAnim };
+  };
+  document.querySelectorAll('.ba').forEach(initSlider);
+
+  // Several jobs: each <article class="proj"> carries its photos; thumbnails and arrows switch between them.
+  // Runs again when the admin panel brings a new list of jobs.
+  const initJobs = () => {
+    const ba = document.getElementById('ba');
     const nav = document.querySelector('.proj__nav');
-    if (ba.id !== 'ba' || projs.length < 2 || !nav) return;
+    if (!ba || !ba.api || !nav) return;
+    const projs = [...document.querySelectorAll('.proj')];
     const imgAfter = ba.querySelector(':scope > img');
     const imgBefore = ba.querySelector('.ba__before img');
     const thumbs = nav.querySelector('.proj__thumbs');
     const count = nav.querySelector('.proj__count');
-    const cta = document.querySelector('.work__cta');
+    thumbs.textContent = '';
+    nav.hidden = projs.length < 2;
+    if (!projs.length) return;
     let cur = 0;
+    let buttons = [];
 
     const pick = (i, quiet) => {
       cur = (i + projs.length) % projs.length;
@@ -192,18 +206,17 @@
       imgBefore.alt = 'Before: ' + title;
       imgBefore.classList.toggle('ba__flip', p.hasAttribute('data-flip'));
       imgBefore.style.objectPosition = p.dataset.pos || '';
-      if (cta && p.dataset.job) cta.dataset.service = p.dataset.job;
       count.textContent = (cur + 1) + ' / ' + projs.length;
       if (!quiet) {
-        stopAnim();
-        set(50);
+        ba.api.stopAnim();
+        ba.api.set(50);
         // on a phone the thumbnails sit under the photo — bring the photo into view
         const r = ba.getBoundingClientRect();
         if (r.top < (bar ? bar.getBoundingClientRect().bottom : 0) || r.bottom > innerHeight) ba.scrollIntoView({ block: 'center' });
       }
     };
 
-    const buttons = projs.map((p, i) => {
+    buttons = projs.map((p, i) => {
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'proj__thumb';
@@ -215,14 +228,15 @@
       return b;
     });
 
-    nav.querySelector('.proj__prev').addEventListener('click', () => pick(cur - 1));
-    nav.querySelector('.proj__next').addEventListener('click', () => pick(cur + 1));
-    nav.hidden = false;
+    nav.querySelector('.proj__prev').onclick = () => pick(cur - 1);
+    nav.querySelector('.proj__next').onclick = () => pick(cur + 1);
     pick(0, true);
-  });
+  };
+  initJobs();
 
-  // Google reviews: drawn from the JSON in #reviews-data
+  // Google reviews: from the admin panel (platform.js), otherwise from the JSON in #reviews-data
   const rev = document.getElementById('reviews');
+  let renderReviews = null;
   if (rev) {
     const starsSvg = (n) => [1, 2, 3, 4, 5].map((i) => '<svg class="' + (i <= Math.round(n) ? '' : 'off') + '"><use href="#i-star"/></svg>').join('');
     const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
@@ -260,15 +274,17 @@
       if (d.write) cta.href = d.write; else cta.removeAttribute('href');
       rev.querySelector('.rev__nolink').hidden = !!d.write;
     };
-    try { render(JSON.parse(document.getElementById('reviews-data').textContent)); } catch (err) { /* broken JSON: the block stays as in the HTML */ }
+    renderReviews = render;
+    try { render(A.reviews || JSON.parse(document.getElementById('reviews-data').textContent)); } catch (err) { /* broken JSON: the block stays as in the HTML */ }
   }
 
-  // Photo cards: a tap opens the photo full size; arrows, keys or a swipe go to the next one
+  // Photo cards: a tap opens the photo full size; arrows, keys or a swipe go to the next one.
+  // The cards are looked up at the moment of the tap, so cards added from the admin work too.
   const lb = document.getElementById('lb');
-  const shots = [...document.querySelectorAll('.card')];
-  if (lb && shots.length && lb.showModal) {
+  if (lb && lb.showModal) {
     const img = lb.querySelector('.lb__img');
     const cap = lb.querySelector('.lb__cap');
+    let shots = [];
     let at = 0;
     let sx = null;
     let swiped = false;
@@ -281,12 +297,15 @@
       cap.textContent = a.querySelector('.card__t').textContent + '  ·  ' + (at + 1) + ' / ' + shots.length;
     };
 
-    shots.forEach((a, i) => a.addEventListener('click', (e) => {
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('.card');
+      if (!a) return;
       e.preventDefault();
-      show(i);
+      shots = [...document.querySelectorAll('.card')];
+      show(shots.indexOf(a));
       lb.showModal();
       document.documentElement.classList.add('lb-open');
-    }));
+    });
     const unlock = () => document.documentElement.classList.remove('lb-open');
     const shut = () => { lb.close(); unlock(); };
     lb.addEventListener('cancel', unlock); // Esc
@@ -339,8 +358,15 @@
         f.details.value.trim(),
       ].filter(Boolean).join('\n');
 
-      location.href = 'sms:' + PHONE + '?&body=' + encodeURIComponent(msg);
+      location.href = 'sms:' + tel() + '?&body=' + encodeURIComponent(msg);
       form.querySelector('.form__done').hidden = false;
     });
   }
+
+  // platform.js calls this when fresh content from the admin panel has replaced parts of the page
+  A.refresh = () => {
+    document.querySelectorAll('.ba').forEach(initSlider);
+    initJobs();
+    if (renderReviews && A.reviews) renderReviews(A.reviews);
+  };
 })();
