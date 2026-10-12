@@ -23,7 +23,7 @@
   'use strict';
 
   // Site number in the admin panel. 0 = not connected yet, the site lives on its HTML.
-  var SITE = 0;
+  var SITE = 109;
 
   var A = (window.ALEXON = window.ALEXON || {});
   if (!SITE) return;
