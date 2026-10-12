@@ -278,7 +278,7 @@
     try { render(A.reviews || JSON.parse(document.getElementById('reviews-data').textContent)); } catch (err) { /* broken JSON: the block stays as in the HTML */ }
   }
 
-  // Photo cards: a tap opens the photo full size; arrows, keys or a swipe go to the next one.
+  // Photo cards and service-page photos: a tap opens the photo full size; arrows, keys or a swipe go to the next one.
   // The cards are looked up at the moment of the tap, so cards added from the admin work too.
   const lb = document.getElementById('lb');
   if (lb && lb.showModal) {
@@ -294,14 +294,15 @@
       const a = shots[at];
       img.src = a.getAttribute('href');
       img.alt = a.querySelector('img').alt;
-      cap.textContent = a.querySelector('.card__t').textContent + '  ·  ' + (at + 1) + ' / ' + shots.length;
+      const t = a.querySelector('.card__t');
+      cap.textContent = (t ? t.textContent + '  ·  ' : '') + (at + 1) + ' / ' + shots.length;
     };
 
     document.addEventListener('click', (e) => {
-      const a = e.target.closest('.card');
+      const a = e.target.closest('a.card, a.shot');
       if (!a) return;
       e.preventDefault();
-      shots = [...document.querySelectorAll('.card')];
+      shots = [...document.querySelectorAll(a.matches('.card') ? 'a.card' : 'a.shot')];
       show(shots.indexOf(a));
       lb.showModal();
       document.documentElement.classList.add('lb-open');

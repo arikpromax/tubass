@@ -316,6 +316,9 @@ html.menu-open .help { display: none; }
 .shot { margin: 0; aspect-ratio: 1; overflow: hidden; background: #EEF0F3; }
 .shot img { width: 100%; height: 100%; object-fit: cover; }
 .shot:has(img) { background: none; }
+a.shot { display: block; cursor: zoom-in; }
+a.shot img { transition: transform .9s cubic-bezier(.2,.7,.2,1); }
+@media (hover: hover) { a.shot:hover img { transform: scale(1.05); } }
 
 /* questions — heading stays put on the left, answers open on the right */
 .faq { background: #fff; color: var(--ink); padding: clamp(72px, 9vw, 128px) 0; }

@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=34">
+<link rel="stylesheet" href="style.css?v=35">
 <script>(function(d){d.classList.add('js');/* lock 1% of screen height once, so in-app browser bars don't make the page jump */var w=0;function f(){if(innerWidth!==w||matchMedia('(hover:hover)').matches){w=innerWidth;d.style.setProperty('--vh1',innerHeight/100+'px')}}f();addEventListener('resize',f)})(document.documentElement)</script>
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Service","name":"Interior Painting & Fence Staining in Edmonton","serviceType":"Painting","description":"Rooms, trim, doors and fences — clean lines and a finish that lasts.","url":"https://arikpromax.github.io/tubass/painting.html","areaServed":{"@type":"City","name":"Edmonton"},"provider":{"@type":"HomeAndConstructionBusiness","@id":"https://arikpromax.github.io/tubass/#business","name":"Alexon Home Services","telephone":"+1-780-280-2404","url":"https://arikpromax.github.io/tubass/"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://arikpromax.github.io/tubass/"},{"@type":"ListItem","position":2,"name":"Painting","item":"https://arikpromax.github.io/tubass/painting.html"}]}]</script>
 </head>
@@ -380,7 +380,14 @@
   <a class="quick is-hidden" href="#contact"><svg class="ic"><use href="#i-text"/></svg>Get a price</a>
 </footer>
 
-<script src="platform.js?v=34"></script>
-<script src="script.js?v=34"></script>
+<dialog class="lb" id="lb" aria-label="Photo">
+  <figure class="lb__fig"><img class="lb__img" src="data:," alt=""><figcaption class="lb__cap"></figcaption></figure>
+  <button class="lb__btn lb__close" type="button" aria-label="Close"><svg class="ic"><use href="#i-close"/></svg></button>
+  <button class="lb__btn lb__prev" type="button" aria-label="Previous photo"><svg class="ic"><use href="#i-prev"/></svg></button>
+  <button class="lb__btn lb__next" type="button" aria-label="Next photo"><svg class="ic"><use href="#i-next"/></svg></button>
+</dialog>
+
+<script src="platform.js?v=35"></script>
+<script src="script.js?v=35"></script>
 </body>
 </html>

@@ -163,7 +163,7 @@
       var shots = page.querySelector('[data-list="svc-photos"]');
       var pics = Array.isArray(x.photos) ? x.photos.filter(Boolean) : [];
       if (shots && pics.length) {
-        shots.innerHTML = pics.map(function (u) { return '<figure class="shot"><img src="' + esc(u) + '" alt="" loading="lazy" decoding="async"></figure>'; }).join('');
+        shots.innerHTML = pics.map(function (u) { return '<a class="shot" href="' + esc(u) + '"><img src="' + esc(u) + '" alt="' + esc(r.title) + '" loading="lazy" decoding="async"></a>'; }).join('');
       }
     });
   };
