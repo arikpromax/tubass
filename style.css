@@ -135,6 +135,8 @@ html.menu-open .help { display: none; }
 .dd__grid { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 8px clamp(16px, 2vw, 32px); max-width: 1180px; margin: 0 auto; }
 .dd__item { display: flex; align-items: center; gap: 16px; padding: 10px; color: var(--ink); text-decoration: none; transition: background-color .2s; }
 .dd__item:hover { background: #F2F4F7; }
+.dd__item--info:hover { background: none; }
+.dd__item--info:hover b { color: inherit; }
 .dd__item:focus-visible { outline-color: var(--blue); outline-offset: 0; }
 .dd__ic { flex: none; width: 52px; height: 52px; display: grid; place-items: center; background: var(--blue); color: #fff; }
 .dd__ic .ic { width: 26px; height: 26px; }
