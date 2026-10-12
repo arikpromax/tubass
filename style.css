@@ -275,6 +275,7 @@ html.menu-open .help { display: none; }
 .crumbs span { margin: 0 8px; }
 .sv-hero__ic { width: clamp(64px, 7vw, 96px); height: clamp(64px, 7vw, 96px); margin-top: clamp(32px, 5vw, 56px); color: var(--blue); stroke-width: 1.2; animation: rise 1s cubic-bezier(.2,.7,.2,1) both; }
 .sv-hero__h { margin-top: clamp(16px, 2vw, 24px); font-size: clamp(44px, 7.4vw, 128px); }
+.sv-hero__sub { display: block; margin-top: 14px; font-weight: 700; font-stretch: 108%; font-size: clamp(18px, 1.9vw, 28px); line-height: 1.2; letter-spacing: 0; text-transform: none; color: #C9CED6; }
 .sv-hero__lead { margin-top: clamp(18px, 2vw, 26px); max-width: 40ch; font-size: clamp(18px, 1.5vw, 22px); color: #C9CED6; }
 .sv-hero__btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: clamp(28px, 3vw, 40px); }
 .sv-other { margin-top: clamp(64px, 8vw, 104px); font-weight: 700; font-stretch: 108%; font-size: clamp(22px, 2vw, 28px); }
