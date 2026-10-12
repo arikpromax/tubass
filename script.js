@@ -18,6 +18,16 @@
   // "Get a price": not on the first screen (the top already has one), not next to the form or the footer
   hideNear(document.querySelector('.quick'), [document.querySelector('.hero, .sv-hero'), formZone, footZone]);
 
+  // Dropdown panels: close after a click (the mouse is often still over the bar after the page scrolls)
+  document.querySelectorAll('.dd').forEach((d) => {
+    d.addEventListener('click', (e) => {
+      if (!e.target.closest('a')) return;
+      d.classList.add('is-closed');
+      if (document.activeElement) document.activeElement.blur();
+    });
+    d.addEventListener('mouseleave', () => d.classList.remove('is-closed'));
+  });
+
   // Phone menu
   const burger = document.querySelector('.bar__burger');
   const mnav = document.getElementById('mnav');

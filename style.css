@@ -82,20 +82,20 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .hd--home .hd__logo { visibility: hidden; }   /* the big logo sits right below on the home page */
 .hd__cta { min-height: 48px; padding: 0 22px; font-size: 14px; border-radius: 6px; }   /* slightly rounded, like the sample */
 
-.bar { position: sticky; top: 12px; z-index: 50; border-radius: 6px; overflow: hidden; display: flex; align-items: stretch; height: var(--bar); margin: 0 clamp(12px, 2vw, 30px); background: var(--blue-deep); color: #fff; transition: box-shadow .3s; }
+.bar { position: sticky; top: 12px; z-index: 50; border-radius: 6px; display: flex; align-items: stretch; height: var(--bar); margin: 0 clamp(12px, 2vw, 30px); background: var(--blue-deep); color: #fff; transition: box-shadow .3s; }
 .bar.is-on { box-shadow: 0 14px 34px rgba(0,0,0,.35); }
 .bar :focus-visible { outline-color: #fff; outline-offset: -4px; }
-.bar__burger { flex: none; width: var(--bar); display: grid; place-items: center; border: 0; border-right: 1px solid rgba(255,255,255,.2); background: none; color: #fff; cursor: pointer; transition: background-color .2s; }
+.bar__burger { border-radius: 6px 0 0 6px; flex: none; width: var(--bar); display: grid; place-items: center; border: 0; border-right: 1px solid rgba(255,255,255,.2); background: none; color: #fff; cursor: pointer; transition: background-color .2s; }
 .bar__burger .ic { width: 24px; height: 24px; }
 .bar__mark { display: flex; align-items: center; width: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: width .35s, opacity .35s, visibility 0s .35s; }
 .bar.is-on .bar__mark { width: 120px; padding-left: 18px; opacity: 1; visibility: visible; transition: width .35s, opacity .35s; }
 .bar__mark img { width: auto; height: 40px; filter: brightness(0) invert(1); }   /* all-white logo on the blue bar */
 .bar__links { flex: 1; display: flex; align-items: stretch; justify-content: space-evenly; }
-.bar__links a { display: flex; align-items: center; padding: 0 14px; color: #fff; text-decoration: none; font-weight: 700; font-stretch: 108%; font-size: 16px; transition: background-color .2s; }
-.bar__tel { flex: none; display: flex; align-items: center; gap: 10px; padding: 0 22px; border-left: 1px solid rgba(255,255,255,.2); color: #fff; text-decoration: none; font-weight: 700; font-stretch: 112%; font-size: 15px; letter-spacing: .03em; transition: background-color .2s; }
+.bar__links > a, .dd__top { display: flex; align-items: center; padding: 0 14px; color: #fff; text-decoration: none; font-weight: 700; font-stretch: 108%; font-size: 16px; transition: background-color .2s; }
+.bar__tel { border-radius: 0 6px 6px 0; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 22px; border-left: 1px solid rgba(255,255,255,.2); color: #fff; text-decoration: none; font-weight: 700; font-stretch: 112%; font-size: 15px; letter-spacing: .03em; transition: background-color .2s; }
 .bar__tel .ic { width: 20px; height: 20px; }
 @media (hover: hover) {
-  .bar__burger:hover, .bar__links a:hover, .bar__tel:hover { background: rgba(255,255,255,.12); }
+  .bar__burger:hover, .bar__links > a:hover, .dd:hover > .dd__top, .bar__tel:hover { background: rgba(255,255,255,.12); }
 }
 
 
@@ -116,6 +116,31 @@ html.menu-open .help { display: none; }
 .mnav__svc { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 24px; }
 .mnav__svc a { color: #C9CED6; text-decoration: none; font-size: 16px; }
 .mnav__foot { display: grid; gap: 10px; margin-top: auto; padding-top: 32px; }
+
+/* dropdown panels under the menu bar (computers with a mouse; keyboard via focus) */
+.dd { display: flex; }
+.dd__panel {
+  position: absolute; left: 0; right: 0; top: 100%;
+  padding: clamp(22px, 2.4vw, 32px) clamp(20px, 3vw, 48px);
+  background: #fff; color: var(--ink); border-radius: 0 0 6px 6px;
+  box-shadow: 0 26px 50px rgba(0,0,0,.3);
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity .18s, transform .18s, visibility 0s .18s;
+}
+@media (hover: hover) {
+  .dd:not(.is-closed):hover .dd__panel { opacity: 1; visibility: visible; transform: none; transition: opacity .18s, transform .18s, visibility 0s; }
+  .bar:has(.dd:not(.is-closed):hover) { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+}
+.dd:has(:focus-visible) .dd__panel { opacity: 1; visibility: visible; transform: none; transition: none; }
+.dd__grid { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 8px clamp(16px, 2vw, 32px); max-width: 1180px; margin: 0 auto; }
+.dd__item { display: flex; align-items: center; gap: 16px; padding: 10px; color: var(--ink); text-decoration: none; transition: background-color .2s; }
+.dd__item:hover { background: #F2F4F7; }
+.dd__item:focus-visible { outline-color: var(--blue); outline-offset: 0; }
+.dd__ic { flex: none; width: 52px; height: 52px; display: grid; place-items: center; background: var(--blue); color: #fff; }
+.dd__ic .ic { width: 26px; height: 26px; }
+.dd__item b { display: block; font-weight: 700; font-stretch: 108%; font-size: 17px; line-height: 1.25; transition: color .2s; }
+.dd__item small { display: block; margin-top: 2px; font-size: 14px; color: var(--muted-ink); }
+.dd__item:hover b { color: var(--blue); }
 
 /* 1 — logo */
 .hero {
