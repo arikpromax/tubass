@@ -7,7 +7,7 @@
   // Empty = the form opens the visitor's messages app instead, as before.
   const LEADS = 'https://script.google.com/macros/s/AKfycby6IMLEK7YD781-Bth0Hz1nUHuvA72krvywCvjVz9YQqmBSPqZs8N5DnQqr84eq2RTD/exec';
   // Google Analytics 4 Measurement ID, like G-XXXXXXXXXX. Empty = no analytics.
-  const GA = '';
+  const GA = 'G-QTE411E0LT';
 
   // Analytics sets cookies, so it starts only after the visitor accepts them in the banner
   const CONSENT = 'alexon_cookies'; // 'yes' | 'no'
