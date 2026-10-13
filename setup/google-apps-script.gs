@@ -21,7 +21,7 @@ const TO = 'homeservice@alexon.info';   // where the request emails go
 const SHEET = 'Заявки';                 // tab name, created on the first request
 const OLD_SHEET = 'Requests';            // the first version's tab — renamed to SHEET
 // column titles in the sheet (rows are written by position, so renaming them is safe)
-const HEAD = ['Дата', 'Імʼя', 'Телефон', 'Тип роботи', 'Район', 'Що потрібно зробити', 'Сторінка', 'Статус'];
+const HEAD = ['Дата', 'Імʼя', 'Телефон', 'Тип роботи', 'Район', 'Що потрібно зробити', 'Статус'];
 const NEW = 'Нова';                      // status of a fresh request
 const TZ = 'America/Edmonton';
 
@@ -33,7 +33,6 @@ function doPost(e) {
     const service = clean_(d.service, 80);
     const area = clean_(d.area, 120);
     const details = clean_(d.details, 2000);
-    const page = clean_(d.page, 80);
 
     const digits = phone.replace(/\D/g, '');
     if (!name || digits.length < 10) return out_({ ok: false, why: 'name and phone are required' });
@@ -47,26 +46,26 @@ function doPost(e) {
 
     const when = Utilities.formatDate(new Date(), TZ, 'yyyy-MM-dd HH:mm');
     const sh = sheet_();
-    sh.appendRow([when, safe_(name), "'" + phone, safe_(service), safe_(area), safe_(details), page, NEW]);
+    sh.appendRow([when, safe_(name), "'" + phone, safe_(service), safe_(area), safe_(details), NEW]);
 
     const tel = '+' + (digits.length === 10 ? '1' + digits : digits);
     MailApp.sendEmail({
       to: TO,
-      name: 'Alexon website',
-      subject: 'New request: ' + name + (service ? ' — ' + service : ''),
+      name: 'Сайт Alexon',
+      subject: 'Нова заявка: ' + name + (service ? ' — ' + service : ''),
       body: [
-        'New request from the website.',
+        'Нова заявка з сайту.',
         '',
-        'Name: ' + name,
-        'Phone: ' + phone + '   (call: tel:' + tel + ')',
-        'Type of work: ' + (service || '—'),
-        'Area: ' + (area || '—'),
+        'Імʼя: ' + name,
+        'Телефон: ' + phone + '   (подзвонити: tel:' + tel + ')',
+        'Тип роботи: ' + (service || '—'),
+        'Район: ' + (area || '—'),
         '',
-        'What needs doing:',
+        'Що потрібно зробити:',
         details || '—',
         '',
-        'Sent ' + when + ' (Edmonton time) from ' + page,
-        'All requests: ' + SpreadsheetApp.getActiveSpreadsheet().getUrl(),
+        'Надіслано ' + when + ' (час Едмонтона)',
+        'Усі заявки: ' + SpreadsheetApp.getActiveSpreadsheet().getUrl(),
       ].join('\n'),
     });
 
@@ -93,6 +92,9 @@ function sheet_() {
       sh.setColumnWidth(6, 420);
     }
   }
+  // the first version had a "Page" column before the status — remove it once
+  const g1 = String(sh.getRange(1, 7).getValue());
+  if (g1 === 'Page' || g1 === 'Сторінка') sh.deleteColumn(7);
   // the title row is always in Ukrainian (also fixes the first, English version)
   const head = sh.getRange(1, 1, 1, HEAD.length);
   if (head.getValues()[0].join('|') !== HEAD.join('|')) {
