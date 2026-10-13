@@ -5,7 +5,7 @@
 
   // Where requests go: the Google Apps Script web app (Google Sheet + email to Alexon).
   // Empty = the form opens the visitor's messages app instead, as before.
-  const LEADS = 'https://script.google.com/macros/s/AKfycbznb3VITNM9Kmm3CApETFFotW74Vz4hlOse0JJKMycdkB5uQK0INsGGF3cRq89A2ntO/exec';
+  const LEADS = 'https://script.google.com/macros/s/AKfycby6IMLEK7YD781-Bth0Hz1nUHuvA72krvywCvjVz9YQqmBSPqZs8N5DnQqr84eq2RTD/exec';
   // Google Analytics 4 Measurement ID, like G-XXXXXXXXXX. Empty = no analytics.
   const GA = '';
 
