@@ -440,14 +440,17 @@
       fetch(LEADS, { method: 'POST', body: JSON.stringify(data) }) // plain text body: no extra permission round-trip
         .then((r) => r.json())
         .then((res) => {
-          if (!res || !res.ok) throw new Error('not saved');
+          // "too many requests" = this number already sent one a minute ago — it's with Alexon
+          if (!res || (!res.ok && res.why !== 'too many requests')) throw new Error(res && res.why ? res.why : 'not saved');
           form.reset();
           ok.hidden = false;
           track('generate_lead', { method: 'form', service: data.service });
         })
-        .catch(() => {
+        .catch((err) => {
+          console.warn('Request not saved:', err && err.message);
           fail.hidden = false;
-          asText(); // the request still reaches Alexon, by text message
+          // on a phone, still get it to Alexon as a text message; a computer has no messages app
+          if (matchMedia('(pointer: coarse)').matches) asText();
         })
         .finally(() => {
           btn.disabled = false;
