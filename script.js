@@ -9,7 +9,11 @@
   // Google Analytics 4 Measurement ID, like G-XXXXXXXXXX. Empty = no analytics.
   const GA = '';
 
-  if (GA) {
+  // Analytics sets cookies, so it starts only after the visitor accepts them in the banner
+  const CONSENT = 'alexon_cookies'; // 'yes' | 'no'
+  const choice = () => { try { return localStorage.getItem(CONSENT); } catch (e) { return null; } };
+  const loadGA = () => {
+    if (window.gtag) return;
     const s = document.createElement('script');
     s.async = true;
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA;
@@ -18,6 +22,33 @@
     window.gtag = function () { window.dataLayer.push(arguments); };
     window.gtag('js', new Date());
     window.gtag('config', GA);
+  };
+  const showBanner = () => {
+    if (document.querySelector('.cc')) return;
+    const box = document.createElement('div');
+    box.className = 'cc';
+    box.setAttribute('role', 'region');
+    box.setAttribute('aria-label', 'Cookies');
+    box.innerHTML = '<p>We use cookies to see how people use this site (Google Analytics). No ads. <a href="privacy.html">Privacy Policy</a></p>' +
+      '<div class="cc__btns"><button class="btn btn--blue" type="button" data-cc="yes">Accept</button><button class="btn btn--line" type="button" data-cc="no">Decline</button></div>';
+    box.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-cc]');
+      if (!b) return;
+      try { localStorage.setItem(CONSENT, b.dataset.cc); } catch (err) { /* private mode: ask again next time */ }
+      if (b.dataset.cc === 'yes') loadGA();
+      box.remove();
+      document.documentElement.classList.remove('cc-open');
+    });
+    document.body.appendChild(box);
+    document.documentElement.classList.add('cc-open');
+  };
+  if (GA) {
+    if (choice() === 'yes') loadGA();
+    else if (choice() !== 'no') showBanner();
+    document.querySelectorAll('[data-cookies]').forEach((a) => {
+      a.hidden = false;
+      a.addEventListener('click', (e) => { e.preventDefault(); showBanner(); });
+    });
   }
   const track = (name, params) => { if (window.gtag) window.gtag('event', name, params || {}); };
   // calls and texts are the main way people get in touch — count them
@@ -41,7 +72,7 @@
   const footZone = document.querySelector('.foot');
   hideNear(document.querySelector('.help'), [formZone, footZone]);
   // "Get a price": not on the first screen (the top already has one), not next to the form or the footer
-  hideNear(document.querySelector('.quick'), [document.querySelector('.hero, .sv-hero'), formZone, footZone]);
+  hideNear(document.querySelector('.quick'), [document.querySelector('.hero, .sv-hero'), document.querySelector('.work__side'), formZone, footZone]);
 
   // Dropdown panels: close after a click (the mouse is often still over the bar after the page scrolls)
   document.querySelectorAll('.dd').forEach((d) => {
