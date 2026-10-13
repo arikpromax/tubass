@@ -152,7 +152,7 @@
       frame = 0;
       before.style.transform = 'translate3d(' + (pos - 100) + '%,0,0)';
       inner.style.transform = 'translate3d(' + (100 - pos) + '%,0,0)';
-      track.style.transform = 'translate3d(' + pos + '%,0,0)';
+      track.style.transform = 'translate3d(' + (pos - 100) + '%,0,0)';
       handle.setAttribute('aria-valuenow', Math.round(pos));
     };
     const set = (p, now) => {

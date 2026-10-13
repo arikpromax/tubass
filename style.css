@@ -254,7 +254,7 @@ html.menu-open .help { display: none; }
 
 /* centred and as tall as the screen allows; 3:4 like the photos, so nothing is cropped */
 .ba {
-  position: relative; overflow: hidden;
+  position: relative; overflow: hidden; contain: paint;   /* paint containment: iPhone clips the moving layers too */
   width: min(560px, calc((var(--vh1, 1svh) * 100 - var(--top) - 150px) * .75)); aspect-ratio: 3 / 4;
   background: #111; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: ew-resize;
 }
@@ -266,10 +266,11 @@ html.menu-open .help { display: none; }
    the "before" layer slides left and its content slides back right by the same amount */
 .ba__before { position: absolute; inset: 0; overflow: hidden; transform: translate3d(-50%, 0, 0); will-change: transform; }
 .ba__in { position: absolute; inset: 0; transform: translate3d(50%, 0, 0); will-change: transform; }
-.ba__track { position: absolute; inset: 0; transform: translate3d(50%, 0, 0); will-change: transform; pointer-events: none; }
-.ba__bar { position: absolute; top: 0; bottom: 0; left: 0; width: 2px; margin-left: -1px; background: #fff; }
+/* the track ends at the divider (its right edge), so it never reaches past the photo on the right */
+.ba__track { position: absolute; inset: 0; transform: translate3d(-50%, 0, 0); will-change: transform; pointer-events: none; }
+.ba__bar { position: absolute; top: 0; bottom: 0; left: 100%; width: 2px; margin-left: -1px; background: #fff; }
 .ba__handle {
-  position: absolute; top: 50%; left: 0;
+  position: absolute; top: 50%; left: 100%;
   width: 56px; height: 56px; margin: -28px 0 0 -28px;
   display: grid; place-items: center;
   background: var(--blue); color: #fff; border: 2px solid #fff; cursor: ew-resize; pointer-events: auto;
