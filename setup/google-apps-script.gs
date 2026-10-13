@@ -18,7 +18,11 @@
    ============================================================ */
 
 const TO = 'homeservice@alexon.info';   // where the request emails go
-const SHEET = 'Requests';               // tab name, created on the first request
+const SHEET = 'Заявки';                 // tab name, created on the first request
+const OLD_SHEET = 'Requests';            // the first version's tab — renamed to SHEET
+// column titles in the sheet (rows are written by position, so renaming them is safe)
+const HEAD = ['Дата', 'Імʼя', 'Телефон', 'Тип роботи', 'Район', 'Що потрібно зробити', 'Сторінка', 'Статус'];
+const NEW = 'Нова';                      // status of a fresh request
 const TZ = 'America/Edmonton';
 
 function doPost(e) {
@@ -43,7 +47,7 @@ function doPost(e) {
 
     const when = Utilities.formatDate(new Date(), TZ, 'yyyy-MM-dd HH:mm');
     const sh = sheet_();
-    sh.appendRow([when, safe_(name), "'" + phone, safe_(service), safe_(area), safe_(details), page, 'New']);
+    sh.appendRow([when, safe_(name), "'" + phone, safe_(service), safe_(area), safe_(details), page, NEW]);
 
     const tel = '+' + (digits.length === 10 ? '1' + digits : digits);
     MailApp.sendEmail({
@@ -81,11 +85,19 @@ function sheet_() {
   const book = SpreadsheetApp.getActiveSpreadsheet();
   let sh = book.getSheetByName(SHEET);
   if (!sh) {
-    sh = book.insertSheet(SHEET, 0);
-    sh.appendRow(['Date', 'Name', 'Phone', 'Type of work', 'Area', 'What needs doing', 'Page', 'Status']);
-    sh.getRange(1, 1, 1, 8).setFontWeight('bold');
+    const old = book.getSheetByName(OLD_SHEET);
+    if (old) {
+      sh = old.setName(SHEET); // keep the requests already there
+    } else {
+      sh = book.insertSheet(SHEET, 0);
+      sh.setColumnWidth(6, 420);
+    }
+  }
+  // the title row is always in Ukrainian (also fixes the first, English version)
+  const head = sh.getRange(1, 1, 1, HEAD.length);
+  if (head.getValues()[0].join('|') !== HEAD.join('|')) {
+    head.setValues([HEAD]).setFontWeight('bold');
     sh.setFrozenRows(1);
-    sh.setColumnWidth(6, 420);
   }
   return sh;
 }
