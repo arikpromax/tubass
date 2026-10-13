@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=43">
+<link rel="stylesheet" href="style.css?v=44">
 <script>(function(d){d.classList.add('js');/* lock 1% of screen height once, so in-app browser bars don't make the page jump */var w=0;function f(){if(innerWidth!==w||matchMedia('(hover:hover)').matches){w=innerWidth;d.style.setProperty('--vh1',innerHeight/100+'px')}}f();addEventListener('resize',f)})(document.documentElement)</script>
 <script type="application/ld+json">
 {
@@ -36,11 +36,12 @@
   "logo": "https://arikpromax.github.io/tubass/img/logo.png",
   "url": "https://arikpromax.github.io/tubass/",
   "description": "Handyman, renovation and painting in Edmonton: drywall, painting, fence and deck staining, flooring, repairs, trim and doors.",
-  "address": { "@type": "PostalAddress", "addressLocality": "Edmonton", "addressRegion": "AB", "addressCountry": "CA" },
+  "address": { "@type": "PostalAddress", "streetAddress": "17120 86 Ave NW", "addressLocality": "Edmonton", "addressRegion": "AB", "postalCode": "T5T 0J2", "addressCountry": "CA" },
+  "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJ1fs41k0hoFMRNJAfr6FTTXo",
   "areaServed": { "@type": "City", "name": "Edmonton" },
   "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "18:00" }],
   "email": "homeservice@alexon.info",
-  "sameAs": ["https://www.facebook.com/share/1EPT72c4Zw/"],
+  "sameAs": ["https://www.facebook.com/share/1EPT72c4Zw/", "https://www.google.com/maps/place/?q=place_id:ChIJ1fs41k0hoFMRNJAfr6FTTXo"],
   "hasOfferCatalog": {"@type":"OfferCatalog","name":"Services","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Drywall","url":"https://arikpromax.github.io/tubass/drywall.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Painting","url":"https://arikpromax.github.io/tubass/painting.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Fences & Decks","url":"https://arikpromax.github.io/tubass/fences-decks.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Flooring","url":"https://arikpromax.github.io/tubass/flooring.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Repairs","url":"https://arikpromax.github.io/tubass/repairs.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Trim & Doors","url":"https://arikpromax.github.io/tubass/trim-doors.html"}}]}
 }
 </script>
@@ -309,8 +310,8 @@
          "reviews": [ { "name": "John", "place": "Edmonton AB", "text": "..." } ]  (three look best) -->
     <script type="application/json" id="reviews-data">
 {
-  "profile": "",
-  "write": "",
+  "profile": "https://www.google.com/maps/place/?q=place_id:ChIJ1fs41k0hoFMRNJAfr6FTTXo",
+  "write": "https://search.google.com/local/writereview?placeid=ChIJ1fs41k0hoFMRNJAfr6FTTXo",
   "rating": null,
   "count": null,
   "reviews": []
@@ -427,9 +428,9 @@
         <h2 data-head="h_area" class="x sec__h rvh"><span class="ln"><span>Where we work</span></span></h2>
         <p class="area__txt rv" style="--d:2"><span data-txt="area">Edmonton &amp; Area</span>, Alberta</p>
       </div>
-      <!-- for now the map shows Edmonton; once Alexon has a Google Business profile, swap q= for the business name -->
+      <!-- the map shows the ALEXON Google Business profile (name + address in q=) -->
       <div class="area__map rv">
-        <iframe title="Map: Edmonton, Alberta" src="https://maps.google.com/maps?q=Edmonton%2C%20AB&amp;z=10&amp;hl=en&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <iframe title="Map: ALEXON, 17120 86 Ave NW, Edmonton, AB T5T 0J2" src="https://maps.google.com/maps?q=ALEXON%2C%2017120%2086%20Ave%20NW%2C%20Edmonton%2C%20AB%20T5T%200J2&amp;z=12&amp;hl=en&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       </div>
     </div>
   </section>
@@ -475,7 +476,7 @@
       </div>
       <div class="foot__col" data-show="address">
         <p class="foot__h">Mailing address</p>
-        <p data-txt="address"><span class="stub">[street address]</span><br>Edmonton, AB <span class="stub">[postal code]</span></p>
+        <p data-txt="address">17120 86 Ave NW<br>Edmonton, AB T5T 0J2</p>
       </div>
       <div class="foot__col">
         <p class="foot__h">Hours</p>
@@ -488,7 +489,7 @@
       <div class="foot__col foot__links">
         <p class="foot__h">Follow us</p>
         <a data-link="facebook" data-show="facebook" href="https://www.facebook.com/share/1EPT72c4Zw/" target="_blank" rel="noopener">Facebook</a>
-        <a data-link="google" data-show="google" data-label="Google" href="#" target="_blank" rel="noopener"><span class="stub">[Google]</span></a>
+        <a data-link="google" data-show="google" data-label="Google" href="https://www.google.com/maps/place/?q=place_id:ChIJ1fs41k0hoFMRNJAfr6FTTXo" target="_blank" rel="noopener">Google</a>
         <a data-link="instagram" data-show="instagram" data-label="Instagram" href="#" target="_blank" rel="noopener"><span class="stub">[Instagram]</span></a>
         <a data-link="tiktok" data-show="tiktok" data-label="TikTok" href="#" target="_blank" rel="noopener"><span class="stub">[TikTok]</span></a>
       </div>
@@ -511,7 +512,7 @@
   <button class="lb__btn lb__next" type="button" aria-label="Next photo"><svg class="ic"><use href="#i-next"/></svg></button>
 </dialog>
 
-<script src="platform.js?v=43"></script>
-<script src="script.js?v=43"></script>
+<script src="platform.js?v=44"></script>
+<script src="script.js?v=44"></script>
 </body>
 </html>
