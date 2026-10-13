@@ -92,9 +92,13 @@ function sheet_() {
       sh.setColumnWidth(6, 420);
     }
   }
+  // the title row was deleted and a request is now in row 1 — keep it, put the titles above
+  const first = String(sh.getRange(1, 1).getValue());
+  if (sh.getLastRow() > 0 && first && first !== 'Дата' && first !== 'Date') sh.insertRowBefore(1);
   // the first version had a "Page" column before the status — remove it once
   const g1 = String(sh.getRange(1, 7).getValue());
-  if (g1 === 'Page' || g1 === 'Сторінка') sh.deleteColumn(7);
+  const g2 = String(sh.getRange(2, 7).getValue());
+  if (g1 === 'Page' || g1 === 'Сторінка' || /\.html$/.test(g2)) sh.deleteColumn(7);
   // the title row is always in Ukrainian (also fixes the first, English version)
   const head = sh.getRange(1, 1, 1, HEAD.length);
   if (head.getValues()[0].join('|') !== HEAD.join('|')) {

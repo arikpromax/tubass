@@ -143,7 +143,7 @@
       });
       if (r.title) {
         each('.mnav__svc a' + href + ', .foot__links a' + href, function (a) { a.textContent = r.title; });
-        each('option[data-svc="' + slug + '"]', function (o) { o.textContent = r.title; });
+        each('option[data-svc="' + slug + '"]', function (o) { o.textContent = r.title; o.value = r.title; });
       }
 
       var page = document.querySelector('[data-svc-page="' + slug + '"]');
