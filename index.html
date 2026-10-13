@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=45">
+<link rel="stylesheet" href="style.css?v=46">
 <script>(function(d){d.classList.add('js');/* lock 1% of screen height once, so in-app browser bars don't make the page jump */var w=0;function f(){if(innerWidth!==w||matchMedia('(hover:hover)').matches){w=innerWidth;d.style.setProperty('--vh1',innerHeight/100+'px')}}f();addEventListener('resize',f)})(document.documentElement)</script>
 <script type="application/ld+json">
 {
@@ -298,7 +298,6 @@
         </div>
         <div class="rev__act">
           <a class="btn btn--g rev__cta" target="_blank" rel="noopener"><svg class="rev__g" aria-hidden="true"><use href="#i-google"/></svg>Leave a review</a>
-          <span class="stub rev__nolink" hidden>[Google review link]</span>
         </div>
       </div>
       <div class="rev__list" role="list"></div>
@@ -329,7 +328,7 @@
           <div><dt>Owner</dt><dd data-txt="owner">Alexander</dd></div>
           <div><dt>Service area</dt><dd><span data-txt="area">Edmonton &amp; Area</span>, Alberta</dd></div>
           <div><dt>Phone</dt><dd><a href="tel:+17802802404"><span data-txt="phone">780-280-2404</span></a></dd></div>
-          <div data-show="licence"><dt>Licence</dt><dd data-txt="licence"><span class="stub">[Alberta prepaid contractor licence no.]</span></dd></div>
+          <div data-show="licence" hidden><dt>Licence</dt><dd data-txt="licence"></dd></div>
         </dl>
       </div>
       <figure class="about__fig rv" style="--d:2" data-photo="about">
@@ -490,8 +489,8 @@
         <p class="foot__h">Follow us</p>
         <a data-link="facebook" data-show="facebook" href="https://www.facebook.com/share/1EPT72c4Zw/" target="_blank" rel="noopener">Facebook</a>
         <a data-link="google" data-show="google" data-label="Google" href="https://www.google.com/maps/place/?q=place_id:ChIJ1fs41k0hoFMRNJAfr6FTTXo" target="_blank" rel="noopener">Google</a>
-        <a data-link="instagram" data-show="instagram" data-label="Instagram" href="#" target="_blank" rel="noopener"><span class="stub">[Instagram]</span></a>
-        <a data-link="tiktok" data-show="tiktok" data-label="TikTok" href="#" target="_blank" rel="noopener"><span class="stub">[TikTok]</span></a>
+        <a data-link="instagram" data-show="instagram" data-label="Instagram" href="#" target="_blank" rel="noopener" hidden>Instagram</a>
+        <a data-link="tiktok" data-show="tiktok" data-label="TikTok" href="#" target="_blank" rel="noopener" hidden>TikTok</a>
       </div>
     </div>
     <div class="foot__bottom">
@@ -512,7 +511,7 @@
   <button class="lb__btn lb__next" type="button" aria-label="Next photo"><svg class="ic"><use href="#i-next"/></svg></button>
 </dialog>
 
-<script src="platform.js?v=45"></script>
-<script src="script.js?v=45"></script>
+<script src="platform.js?v=46"></script>
+<script src="script.js?v=46"></script>
 </body>
 </html>

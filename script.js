@@ -325,8 +325,8 @@
       all.hidden = !d.profile;
       if (d.profile) { all.href = d.profile; all.textContent = (d.count ? 'Read all ' + d.count + ' reviews on Google' : 'Read the reviews on Google') + ' →'; }
       const cta = rev.querySelector('.rev__cta');
-      if (d.write) cta.href = d.write; else cta.removeAttribute('href');
-      rev.querySelector('.rev__nolink').hidden = !!d.write;
+      if (d.write) cta.href = d.write;
+      cta.hidden = !d.write;
     };
     renderReviews = render;
     try { render(A.reviews || JSON.parse(document.getElementById('reviews-data').textContent)); } catch (err) { /* broken JSON: the block stays as in the HTML */ }
