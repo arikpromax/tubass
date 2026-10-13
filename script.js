@@ -3,6 +3,29 @@
   const A = (window.ALEXON = window.ALEXON || {});
   const tel = () => A.tel || '+17802802404';
 
+  // Where requests go: the Google Apps Script web app (Google Sheet + email to Alexon).
+  // Empty = the form opens the visitor's messages app instead, as before.
+  const LEADS = '';
+  // Google Analytics 4 Measurement ID, like G-XXXXXXXXXX. Empty = no analytics.
+  const GA = '';
+
+  if (GA) {
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', GA);
+  }
+  const track = (name, params) => { if (window.gtag) window.gtag('event', name, params || {}); };
+  // calls and texts are the main way people get in touch — count them
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="tel:"], a[href^="sms:"]');
+    if (a) track(a.getAttribute('href').startsWith('tel:') ? 'click_call' : 'click_text', { link_text: a.textContent.trim().slice(0, 60) });
+  });
+
   // Floating buttons keep out of the way: they hide while certain parts of the page are on screen
   const hideNear = (el, zones) => {
     zones = zones.filter(Boolean);
@@ -344,23 +367,61 @@
 
     f.phone.addEventListener('input', () => f.phone.setCustomValidity(''));
 
+    const btn = form.querySelector('button[type="submit"]');
+    const label = form.querySelector('.form__btn');
+    const ok = form.querySelector('.form__ok');
+    const fail = form.querySelector('.form__done');
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const digits = f.phone.value.replace(/\D/g, '');
       f.phone.setCustomValidity(digits.length >= 10 ? '' : 'Please enter a 10-digit phone number.');
       if (!form.reportValidity()) return;
+      if (f.website.value) return; // a bot filled the hidden field
 
-      const msg = [
-        'Hi Alexon, please call me back.',
-        'Name: ' + f.who.value.trim(),
-        'Phone: ' + f.phone.value.trim(),
-        f.service.value && 'Type of work: ' + f.service.value,
-        f.area.value.trim() && 'Area: ' + f.area.value.trim(),
-        f.details.value.trim(),
-      ].filter(Boolean).join('\n');
+      const data = {
+        name: f.who.value.trim(),
+        phone: f.phone.value.trim(),
+        service: f.service.value,
+        area: f.area.value.trim(),
+        details: f.details.value.trim(),
+        page: location.pathname.split('/').pop() || 'index.html',
+      };
+      const asText = () => {
+        const msg = [
+          'Hi Alexon, please call me back.',
+          'Name: ' + data.name,
+          'Phone: ' + data.phone,
+          data.service && 'Type of work: ' + data.service,
+          data.area && 'Area: ' + data.area,
+          data.details,
+        ].filter(Boolean).join('\n');
+        location.href = 'sms:' + tel() + '?&body=' + encodeURIComponent(msg);
+      };
 
-      location.href = 'sms:' + tel() + '?&body=' + encodeURIComponent(msg);
-      form.querySelector('.form__done').hidden = false;
+      // no address for the sheet yet — the old way: the visitor's messages app
+      if (!LEADS) { asText(); track('generate_lead', { method: 'sms', service: data.service }); return; }
+
+      btn.disabled = true;
+      label.textContent = 'Sending…';
+      ok.hidden = true;
+      fail.hidden = true;
+      fetch(LEADS, { method: 'POST', body: JSON.stringify(data) }) // plain text body: no extra permission round-trip
+        .then((r) => r.json())
+        .then((res) => {
+          if (!res || !res.ok) throw new Error('not saved');
+          form.reset();
+          ok.hidden = false;
+          track('generate_lead', { method: 'form', service: data.service });
+        })
+        .catch(() => {
+          fail.hidden = false;
+          asText(); // the request still reaches Alexon, by text message
+        })
+        .finally(() => {
+          btn.disabled = false;
+          label.textContent = 'Send request';
+        });
     });
   }
 

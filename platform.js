@@ -90,7 +90,7 @@
     each('[data-mail]', function (el) {
       var v = String(T[el.getAttribute('data-mail')] || '').trim();
       if (!v) return;
-      el.textContent = v;
+      if (!el.hasAttribute('data-mail-keep')) el.textContent = v;
       el.href = 'mailto:' + v;
     });
 

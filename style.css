@@ -384,6 +384,10 @@ a.shot img { transition: transform .9s cubic-bezier(.2,.7,.2,1); }
 .form__note { max-width: 46ch; font-size: 14px; color: #EEF4FF; }
 .form__note a, .foot__copy a { color: inherit; }
 .form__done { grid-column: 1 / -1; font-size: 15px; }
+.form__ok { grid-column: 1 / -1; padding: 16px 18px; background: #fff; color: var(--ink); font-size: 16px; }
+.form__ok b { color: var(--blue-deep); }
+.form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form .btn[disabled] { opacity: .7; cursor: progress; }
 .form__done a { color: #fff; font-weight: 700; }
 
 /* what we do best — photo cards, two big on top, four below; tap opens the photo full screen */

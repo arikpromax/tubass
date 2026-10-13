@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=35">
+<link rel="stylesheet" href="style.css?v=36">
 <script>(function(d){d.classList.add('js');/* lock 1% of screen height once, so in-app browser bars don't make the page jump */var w=0;function f(){if(innerWidth!==w||matchMedia('(hover:hover)').matches){w=innerWidth;d.style.setProperty('--vh1',innerHeight/100+'px')}}f();addEventListener('resize',f)})(document.documentElement)</script>
 </head>
 <body>
@@ -50,6 +50,7 @@
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z M12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 5h18v14H3z M3 6l9 7 9-7"/></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18 M3 12h18 M3 18h18"/></symbol>
   <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5 M6 11l6-6 6 6"/></symbol>
   <symbol id="i-help" viewBox="0 0 24 24"><path d="M4 13v-1a8 8 0 0 1 16 0v1 M3 13h4v6H3z M17 13h4v6h-4z M19 19v1a2 2 0 0 1-2 2h-4"/></symbol>
@@ -111,9 +112,10 @@
     <div class="dd">
       <a class="dd__top" href="index.html#contact" aria-haspopup="true">Contact</a>
       <div class="dd__panel">
-        <div class="dd__grid" style="--cols:5">
+        <div class="dd__grid" style="--cols:3">
           <a class="dd__item" href="tel:+17802802404"><span class="dd__ic"><svg class="ic"><use href="#i-phone"/></svg></span><span><b>Call</b><small><span data-txt="phone">780-280-2404</span></small></span></a>
           <a class="dd__item" href="sms:+17802802404"><span class="dd__ic"><svg class="ic"><use href="#i-text"/></svg></span><span><b>Send a text</b><small>Photos of the job are welcome</small></span></a>
+          <a class="dd__item" data-mail="email" data-mail-keep data-show="email" href="mailto:homeservice@alexon.info"><span class="dd__ic"><svg class="ic"><use href="#i-mail"/></svg></span><span><b>Email</b><small data-txt="email">homeservice@alexon.info</small></span></a>
           <a class="dd__item" href="index.html#contact"><span class="dd__ic"><svg class="ic"><use href="#i-arrow"/></svg></span><span><b>Get a price</b><small>A short form, we call you back</small></span></a>
           <a class="dd__item" data-link="facebook" data-show="facebook" href="https://www.facebook.com/share/1EPT72c4Zw/" target="_blank" rel="noopener"><span class="dd__ic"><svg class="ic ic--fill"><use href="#i-fb"/></svg></span><span><b>Facebook</b><small>Alexon on Facebook</small></span></a>
           <div class="dd__item dd__item--info"><span class="dd__ic"><svg class="ic"><use href="#i-clock"/></svg></span><span><b>Hours</b><small data-txt="hours">Monday – Friday<br>8 a.m. – 6 p.m.</small></span></div>
@@ -157,7 +159,7 @@
     <div class="wrap legal__in">
       <p class="crumbs"><a href="index.html">Home</a><span aria-hidden="true">/</span>Privacy Policy</p>
       <h1 class="x sec__h">Privacy Policy</h1>
-      <p class="legal__date">Last updated: October 11, 2026</p>
+      <p class="legal__date">Last updated: October 13, 2026</p>
 
       <p>Alexon Home Services (“Alexon”, “we”) is a home services business in Edmonton, Alberta. This policy explains what personal information we collect, why, and how we protect it, in line with Alberta’s Personal Information Protection Act (PIPA) and Canada’s Personal Information Protection and Electronic Documents Act (PIPEDA).</p>
 
@@ -170,7 +172,7 @@
       </ul>
 
       <h2>How we collect it</h2>
-      <p>You give it to us when you call or text us, or when you use the “Let us call you” form. The form does not send anything to a server: it opens your messaging app with a text addressed to us, and nothing is sent until you press send.</p>
+      <p>You give it to us when you call, text or email us, or when you send the “Let us call you” form. The form sends your request to us by email and saves it in our list of requests in Google Sheets, so we can call you back. If it can’t be sent, it opens your messaging app with a text addressed to us instead, and nothing is sent until you press send.</p>
 
       <h2>Why we use it</h2>
       <ul>
@@ -185,9 +187,11 @@
 
       <h2>Sharing</h2>
       <p>We share information only when it’s needed to do your job — for example, a delivery address for materials — or when the law requires it.</p>
+      <p>We use Google (Gmail and Google Sheets) to receive and keep your requests. Google stores this information on its servers, which may be outside Canada, so it may be subject to the laws of those countries. Google uses it only to provide this service to us. To ask about this, contact us below.</p>
 
       <h2>This website</h2>
-      <p>The site itself doesn’t use cookies, analytics or advertising trackers. It loads fonts from Google Fonts, and the home page shows a map from Google Maps, so Google receives your IP address when a page loads and the map may set Google’s own cookies (see <a href="https://policies.google.com/privacy" rel="noopener">Google’s Privacy Policy</a>).</p>
+      <p>We use Google Analytics to see how many people visit the site, which pages they open and how they get in touch (for example, a tap on “Call”). It uses cookies and collects information such as your device, browser, approximate location and the pages you visit; it does not tell us who you are, and we don’t use it for advertising. You can block it with your browser settings or the <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener">Google Analytics opt-out add-on</a>.</p>
+      <p>The site also loads fonts from Google Fonts, and the home page shows a map from Google Maps, so Google receives your IP address when a page loads and the map may set Google’s own cookies (see <a href="https://policies.google.com/privacy" rel="noopener">Google’s Privacy Policy</a>). There are no advertising trackers.</p>
 
       <h2>How long we keep it</h2>
       <p>Only as long as we need it for the reasons above. Business records such as invoices are kept for six years, as the Canada Revenue Agency requires.</p>
@@ -199,7 +203,7 @@
       <p>You can ask to see the personal information we hold about you, ask us to correct it, or withdraw your consent (this may mean we can’t finish a job). Call or text us at <a href="tel:+17802802404">780-280-2404</a>. If you’re not satisfied with our answer, you can contact the Office of the Information and Privacy Commissioner of Alberta at <a href="https://oipc.ab.ca" rel="noopener">oipc.ab.ca</a>.</p>
 
       <h2>Contact</h2>
-      <p>Privacy questions: Alexander, Alexon Home Services, <a href="tel:+17802802404">780-280-2404</a>.</p>
+      <p>Privacy questions: Alexander, Alexon Home Services, <a href="tel:+17802802404">780-280-2404</a>, <a href="mailto:homeservice@alexon.info">homeservice@alexon.info</a>.</p>
     </div>
   </section>
 </main>
@@ -239,7 +243,7 @@
       <div class="foot__col">
         <p class="foot__h">Contact</p>
         <a class="foot__tel" href="tel:+17802802404"><span data-txt="phone">780-280-2404</span></a>
-        <p data-show="email"><a data-mail="email" href="#"><span class="stub">[email]</span></a></p>
+        <p data-show="email"><a data-mail="email" href="mailto:homeservice@alexon.info">homeservice@alexon.info</a></p>
       </div>
       <div class="foot__col" data-show="address">
         <p class="foot__h">Mailing address</p>
@@ -272,7 +276,7 @@
   <a class="quick is-hidden" href="index.html#contact"><svg class="ic"><use href="#i-text"/></svg>Get a price</a>
 </footer>
 
-<script src="platform.js?v=35"></script>
-<script src="script.js?v=35"></script>
+<script src="platform.js?v=36"></script>
+<script src="script.js?v=36"></script>
 </body>
 </html>
